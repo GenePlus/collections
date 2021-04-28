@@ -25,6 +25,7 @@ func NewOrderedMap() *OrderedMap {
 }
 
 func (om *OrderedMap) GetKeysString() []string {
+	om.BackToHead()
 	rKeys := make([]string, 0, om.Len())
 	for k, _, ok := om.Iter(); ok; k, _, ok = om.Iter() {
 		rKeys = append(rKeys, k.(string))
@@ -33,6 +34,7 @@ func (om *OrderedMap) GetKeysString() []string {
 }
 
 func (om *OrderedMap) GetKeysInt() []int {
+	om.BackToHead()
 	rKeys := make([]int, 0, om.Len())
 	for k, _, ok := om.Iter(); ok; k, _, ok = om.Iter() {
 		rKeys = append(rKeys, k.(int))
