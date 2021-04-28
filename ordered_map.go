@@ -24,6 +24,22 @@ func NewOrderedMap() *OrderedMap {
 	}
 }
 
+func (om *OrderedMap) GetKeysString() []string {
+	rKeys := make([]string, 0, om.Len())
+	for k, _, ok := om.Iter(); ok; k, _, ok = om.Iter() {
+		rKeys = append(rKeys, k.(string))
+	}
+	return rKeys
+}
+
+func (om *OrderedMap) GetKeysInt() []int {
+	rKeys := make([]int, 0, om.Len())
+	for k, _, ok := om.Iter(); ok; k, _, ok = om.Iter() {
+		rKeys = append(rKeys, k.(int))
+	}
+	return rKeys
+}
+
 func (om *OrderedMap) Set(key, value interface{}) {
 	if _, ok := om.items[key]; ok {
 		om.items[key].value = value
@@ -41,6 +57,13 @@ func (om *OrderedMap) Get(key interface{}) (interface{}, bool) {
 		return v.value, ok
 	}
 	return nil, false
+}
+
+func (om *OrderedMap) HasKey(key interface{}) bool {
+	if _, ok := om.items[key]; ok {
+		return ok
+	}
+	return false
 }
 
 func (om *OrderedMap) Delete(key interface{}) bool {
